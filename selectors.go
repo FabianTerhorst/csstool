@@ -1,7 +1,7 @@
 package csstool
 
 import (
-	"github.com/tdewolff/parse/css"
+	"github.com/tdewolff/parse/v2/css"
 )
 
 func selectors(tokens []css.Token) []string {

@@ -6,7 +6,8 @@ import (
 	"io"
 	"log"
 
-	"github.com/tdewolff/parse/css"
+	"github.com/tdewolff/parse/v2"
+	"github.com/tdewolff/parse/v2/css"
 )
 
 type stack []io.Writer
@@ -73,7 +74,9 @@ func (c *CSSFormat) Format(r io.Reader, wraw io.Writer) error {
 	skipRuleset := false
 	rulesetCount := 0
 
-	p := css.NewParser(r, false)
+	input := parse.NewInput(r)
+	defer input.Restore()
+	p := css.NewParser(input, false)
 	for {
 		gt, _, data := p.Next()
 		switch gt {

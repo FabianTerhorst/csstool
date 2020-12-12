@@ -65,7 +65,7 @@
   input-imports = [
     "github.com/mattn/go-zglob",
     "github.com/spf13/cobra",
-    "github.com/tdewolff/parse/css",
+    "github.com/tdewolff/parse/v2/css",
     "golang.org/x/net/html",
   ]
   solver-name = "gps-cdcl"

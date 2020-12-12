@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/tdewolff/parse/css"
+	"github.com/tdewolff/parse/v2/css"
 )
 
 // Dump emits grammar info

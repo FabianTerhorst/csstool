@@ -4,7 +4,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/tdewolff/parse/css"
+	"github.com/tdewolff/parse/v2"
+	"github.com/tdewolff/parse/v2/css"
 )
 
 func TestSelectors(t *testing.T) {
@@ -151,7 +152,9 @@ func TestSelectors(t *testing.T) {
 		},
 	}
 	for i, c := range cases {
-		p := css.NewParser(strings.NewReader(c.src+"{}"), false)
+		input := parse.NewInput(strings.NewReader(c.src+"{}"))
+		defer input.Restore()
+		p := css.NewParser(input, false)
 		p.Next()
 		got := selectors(p.Values())
 		want := c.want

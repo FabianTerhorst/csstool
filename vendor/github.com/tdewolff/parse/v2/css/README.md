@@ -1,21 +1,21 @@
-# CSS [![GoDoc](http://godoc.org/github.com/tdewolff/parse/css?status.svg)](http://godoc.org/github.com/tdewolff/parse/css) [![GoCover](http://gocover.io/_badge/github.com/tdewolff/parse/css)](http://gocover.io/github.com/tdewolff/parse/css)
+# CSS [![GoDoc](http://godoc.org/github.com/tdewolff/parse/css?status.svg)](http://godoc.org/github.com/tdewolff/parse/css)
 
 This package is a CSS3 lexer and parser written in [Go][1]. Both follow the specification at [CSS Syntax Module Level 3](http://www.w3.org/TR/css-syntax-3/). The lexer takes an io.Reader and converts it into tokens until the EOF. The parser returns a parse tree of the full io.Reader input stream, but the low-level `Next` function can be used for stream parsing to returns grammar units until the EOF.
 
 ## Installation
 Run the following command
 
-	go get github.com/tdewolff/parse/css
+	go get -u github.com/tdewolff/parse/v2/css
 
 or add the following import and run project with `go get`
 
-	import "github.com/tdewolff/parse/css"
+	import "github.com/tdewolff/parse/v2/css"
 
 ## Lexer
 ### Usage
 The following initializes a new Lexer with io.Reader `r`:
 ``` go
-l := css.NewLexer(r)
+l := css.NewLexer(parse.NewInput(r))
 ```
 
 To tokenize until EOF an error, use:
@@ -40,8 +40,8 @@ AtKeywordToken		// @abc
 HashToken			// #abc
 StringToken
 BadStringToken
-UrlToken			// url(
-BadUrlToken
+URLToken			// url(
+BadURLToken
 DelimToken			// any unmatched character
 NumberToken			// 5
 PercentageToken		// 5%
@@ -70,12 +70,12 @@ package main
 import (
 	"os"
 
-	"github.com/tdewolff/parse/css"
+	"github.com/tdewolff/parse/v2/css"
 )
 
 // Tokenize CSS3 from stdin.
 func main() {
-	l := css.NewLexer(os.Stdin)
+	l := css.NewLexer(parse.NewInput(os.Stdin))
 	for {
 		tt, text := l.Next()
 		switch tt {
@@ -99,7 +99,7 @@ func main() {
 The following creates a new Parser.
 ``` go
 // true because this is the content of an inline style attribute
-p := css.NewParser(bytes.NewBufferString("color: red;"), true)
+p := css.NewParser(parse.NewInput(bytes.NewBufferString("color: red;")), true)
 ```
 
 To iterate over the stylesheet, use:
@@ -132,12 +132,12 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/tdewolff/parse/css"
+	"github.com/tdewolff/parse/v2/css"
 )
 
 func main() {
 	// true because this is the content of an inline style attribute
-	p := css.NewParser(bytes.NewBufferString("color: red;"), true)
+	p := css.NewParser(parse.NewInput(bytes.NewBufferString("color: red;")), true)
 	out := ""
 	for {
 		gt, _, data := p.Next()
@@ -162,7 +162,6 @@ func main() {
 	}
 	fmt.Println(out)
 }
-
 ```
 
 ## License
