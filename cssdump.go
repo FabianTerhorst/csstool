@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 
+	"github.com/tdewolff/parse/v2"
 	"github.com/tdewolff/parse/v2/css"
 )
 
@@ -11,7 +12,9 @@ import (
 //
 // really only useful for debugging
 func Dump(r io.Reader, w io.Writer) error {
-	p := css.NewParser(r, false)
+	input := parse.NewInput(r)
+	defer input.Restore()
+	p := css.NewParser(input, false)
 	for {
 		gt, tt, data := p.Next()
 		switch gt {
