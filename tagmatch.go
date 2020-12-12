@@ -1,5 +1,7 @@
 package csstool
 
+import "strings"
+
 type matcher interface {
 	Remove([]string) bool
 }
@@ -49,6 +51,7 @@ func (tm *TagMatcher) Remove(selectors []string) bool {
 // AddSelector adds a selector to save
 func (tm *TagMatcher) AddSelector(key string) {
 	tm.tags[key] = true
+	tm.tags[strings.ReplaceAll(key, "\\", "")] = true
 }
 
 // RemoveSelector deletes a selector to save

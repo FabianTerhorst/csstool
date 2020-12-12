@@ -6,7 +6,7 @@ require (
 	github.com/spf13/cobra v0.0.3
 	github.com/spf13/pflag v1.0.3 // indirect
 	github.com/tdewolff/parse/v2 v2.5.6
-	golang.org/x/net v0.0.0-20181023162649-9b4f9f5ad519
+	golang.org/x/net v0.0.0-20201209123823-ac852fbbde11
 )
 
 go 1.15
