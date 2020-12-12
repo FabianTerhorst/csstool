@@ -41,7 +41,7 @@ func NewTagMatcher(tags []string) *TagMatcher {
 // Remove returns true if tag is to be dropped
 func (tm *TagMatcher) Remove(selectors []string) bool {
 	for _, selector := range selectors {
-		if !tm.tags[selector] {
+		if !tm.tags[selector] && !tm.tags[strings.ReplaceAll(selector, "\\", "")] {
 			return true
 		}
 	}
@@ -51,7 +51,6 @@ func (tm *TagMatcher) Remove(selectors []string) bool {
 // AddSelector adds a selector to save
 func (tm *TagMatcher) AddSelector(key string) {
 	tm.tags[key] = true
-	tm.tags[strings.ReplaceAll(key, "\\", "")] = true
 }
 
 // RemoveSelector deletes a selector to save
